@@ -1011,6 +1011,123 @@
             to { transform: translateX(100%); opacity: 0; }
         }
 
+        /* Enhanced animations and effects */
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Gradient text effects */
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Enhanced buttons */
+        .btn-gradient {
+            background: var(--gradient-accent);
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(244, 162, 97, 0.4);
+        }
+
+        /* Floating elements */
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--gradient-accent);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title {
@@ -1475,7 +1592,7 @@
     </footer>
 
     <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/77051234567?text=Здравствуйте! Я заинтересован в ваших турах." class="whatsapp-float" target="_blank" title="Написать в WhatsApp">
+    <a href="https://wa.me/77051234567?text=Здравствуйте! Я заинтересован в ваших турах." class="whatsapp-float pulse-animation" target="_blank" title="Написать в WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -2104,6 +2221,162 @@
             });
         }
 
+        // Enhanced WhatsApp integration
+        function sendToWhatsApp(bookingData) {
+            const message = `🎯 *НОВОЕ БРОНИРОВАНИЕ ТУРА*
+
+📋 *Тур:* ${bookingData.tourTitle}
+📍 *Направление:* ${getLocationByTourId(bookingData.tourId)}
+
+👤 *КЛИЕНТ:*
+• Имя: ${bookingData.name} ${bookingData.lastName}
+• Телефон: ${bookingData.phone}
+• Email: ${bookingData.email}
+
+🗓 *ДЕТАЛИ ПОЕЗДКИ:*
+• Дата: ${bookingData.date}
+• Количество: ${bookingData.people}
+• Стоимость: ${formatPrice(bookingData.totalPrice)} ₸
+
+💬 *Комментарии:* ${bookingData.comments || 'Нет особых пожеланий'}
+
+🆔 *Заявка:* #${bookingData.id}
+⏰ *Получена:* ${new Date().toLocaleString('ru-RU')}
+
+✅ *Статус:* Ожидает подтверждения
+📞 *Действие:* Перезвоните клиенту для уточнения деталей`;
+
+            // Показываем прогресс
+            showProgressNotification('Формируем заявку...', 1000);
+            
+            setTimeout(() => {
+                showProgressNotification('Переходим в WhatsApp...', 1000);
+                
+                setTimeout(() => {
+                    const whatsappUrl = `https://wa.me/77051234567?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Предлагаем альтернативу
+                    showWhatsAppAlternatives(message, bookingData);
+                }, 1000);
+            }, 1000);
+        }
+
+        // Get location by tour ID
+        function getLocationByTourId(tourId) {
+            const tour = toursData.find(t => t.id === tourId);
+            return tour ? tour.location : 'Не указано';
+        }
+
+        // Show WhatsApp alternatives
+        function showWhatsAppAlternatives(message, bookingData) {
+            setTimeout(() => {
+                const modal = document.createElement('div');
+                modal.className = 'modal active';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3><i class="fab fa-whatsapp" style="color: #25d366;"></i> Отправка заявки</h3>
+                            <button class="close-modal" onclick="document.body.removeChild(this.closest('.modal'))">&times;</button>
+                        </div>
+                        <p style="margin-bottom: 1.5rem;">Если WhatsApp не открылся автоматически, используйте альтернативные способы:</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <button onclick="copyMessageToClipboard('${btoa(message)}')" class="btn-primary">
+                                <i class="fas fa-copy"></i> Скопировать сообщение
+                            </button>
+                            
+                            <button onclick="sendViaEmail('${btoa(JSON.stringify(bookingData))}')" class="btn-primary">
+                                <i class="fas fa-envelope"></i> Отправить на email
+                            </button>
+                            
+                            <a href="tel:+77273456789" class="btn-primary" style="text-decoration: none; text-align: center;">
+                                <i class="fas fa-phone"></i> Позвонить напрямую
+                            </a>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: #f0f8f0; border-radius: 8px;">
+                            <small style="color: #666;">
+                                <i class="fas fa-info-circle"></i> 
+                                Ваша заявка сохранена в системе. Мы обязательно с вами свяжемся!
+                            </small>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }, 3000);
+        }
+
+        // Copy message to clipboard
+        function copyMessageToClipboard(encodedMessage) {
+            const message = atob(encodedMessage);
+            navigator.clipboard.writeText(message).then(() => {
+                showNotification('Сообщение скопировано! Теперь откройте WhatsApp и вставьте', 'success');
+                // Открываем WhatsApp без сообщения
+                window.open('https://wa.me/77051234567', '_blank');
+                document.body.removeChild(document.querySelector('.modal'));
+            }).catch(() => {
+                // Fallback для старых браузеров
+                const textarea = document.createElement('textarea');
+                textarea.value = message;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification('Сообщение скопировано!', 'success');
+            });
+        }
+
+        // Send via email
+        function sendViaEmail(encodedData) {
+            const bookingData = JSON.parse(atob(encodedData));
+            const subject = encodeURIComponent(`Новое бронирование: ${bookingData.tourTitle}`);
+            const body = encodeURIComponent(`
+Новая заявка на бронирование тура:
+
+Тур: ${bookingData.tourTitle}
+Клиент: ${bookingData.name} ${bookingData.lastName}
+Телефон: ${bookingData.phone}
+Email: ${bookingData.email}
+Дата: ${bookingData.date}
+Количество: ${bookingData.people}
+Стоимость: ${formatPrice(bookingData.totalPrice)} ₸
+
+Комментарии: ${bookingData.comments || 'Нет'}
+
+Заявка #${bookingData.id}
+Время: ${new Date(bookingData.createdAt).toLocaleString('ru-RU')}
+            `);
+            
+            window.open(`mailto:info@travelpro.kz?subject=${subject}&body=${body}`, '_blank');
+            document.body.removeChild(document.querySelector('.modal'));
+            showNotification('Email клиент открыт. Отправьте письмо!', 'info');
+        }
+
+        // Progress notification
+        function showProgressNotification(message, duration) {
+            const notification = document.createElement('div');
+            notification.className = 'notification notification-info';
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="loading"></div>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    notification.style.animation = 'slideOutRight 0.3s ease-in';
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }
+            }, duration);
+        }
+
         // Handle booking form submission
         function handleBooking(e) {
             e.preventDefault();
@@ -2127,40 +2400,24 @@
                 createdAt: new Date().toISOString()
             };
 
+            // Save booking
+            bookings.push(bookingData);
+            localStorage.setItem('travelpro_bookings', JSON.stringify(bookings));
+            
+            document.getElementById('bookingSuccess').style.display = 'block';
+            document.getElementById('bookingError').style.display = 'none';
+            
+            updateAdminStats();
+            
+            // Enhanced WhatsApp sending
+            sendToWhatsApp(bookingData);
+            
+            showNotification('Заявка принята! Проверьте админку.', 'success');
+            
+            // Reset form after delay
             setTimeout(() => {
-                bookings.push(bookingData);
-                localStorage.setItem('travelpro_bookings', JSON.stringify(bookings));
-                
-                document.getElementById('bookingSuccess').style.display = 'block';
-                document.getElementById('bookingError').style.display = 'none';
-                
-                updateAdminStats();
-                
-                // Send to WhatsApp
-                const whatsappMessage = `🎯 НОВОЕ БРОНИРОВАНИЕ
-                
-Тур: ${tour.title}
-Клиент: ${bookingData.name} ${bookingData.lastName}
-Телефон: ${bookingData.phone}
-Email: ${bookingData.email}
-Дата поездки: ${bookingData.date}
-Количество: ${bookingData.people}
-Стоимость: ${formatPrice(tour.price)} ₸
-
-Комментарии: ${bookingData.comments || 'Нет'}
-
-Заявка #${bookingData.id}`;
-                
-                const whatsappUrl = `https://wa.me/77051234567?text=${encodeURIComponent(whatsappMessage)}`;
-                window.open(whatsappUrl, '_blank');
-                
-                showNotification('Бронирование отправлено! Проверьте админку.', 'success');
-                
-                // Reset form after 2 seconds
-                setTimeout(() => {
-                    closeModal('bookingModal');
-                }, 2000);
-            }, 1000);
+                closeModal('bookingModal');
+            }, 2000);
         }
 
         // Handle contact form submission
