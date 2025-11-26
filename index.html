@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelPro - Путешествия без компромиссов</title>
+    <meta name="description" content="Турагентство TravelPro - организуем незабываемые путешествия без компромиссов. Туры по всему миру, визовая поддержка, лучшие цены.">
+    
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231a472a'/><text y='70' font-size='60' fill='%23f4a261'>✈</text></svg>">
+    
     <style>
         :root {
             --primary-color: #1a472a;
@@ -68,6 +74,14 @@
             color: var(--text-light);
             text-decoration: none;
             letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '✈';
+            font-size: 1.5rem;
         }
 
         .nav {
@@ -104,10 +118,32 @@
             width: 100%;
         }
 
+        .admin-link {
+            background: rgba(244, 162, 97, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(26, 71, 42, 0.3), rgba(45, 95, 63, 0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23264653;stop-opacity:1" /><stop offset="50%" style="stop-color:%232a9d8f;stop-opacity:1" /><stop offset="100%" style="stop-color:%23e9c46a;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23g1)"/><circle cx="200" cy="150" r="60" fill="%23f4a261" opacity="0.3"/><circle cx="800" cy="200" r="40" fill="%23e76f51" opacity="0.2"/><circle cx="1000" cy="600" r="80" fill="%232a9d8f" opacity="0.2"/><path d="M0,400 Q300,300 600,400 T1200,400 L1200,800 L0,800 Z" fill="%23264653" opacity="0.1"/></svg>');
+            background: linear-gradient(rgba(26, 71, 42, 0.4), rgba(45, 95, 63, 0.4)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -257,6 +293,7 @@
             box-shadow: var(--shadow-soft);
             transition: var(--transition-smooth);
             cursor: pointer;
+            position: relative;
         }
 
         .tour-card:hover {
@@ -266,7 +303,8 @@
 
         .tour-image {
             height: 250px;
-            background: var(--gradient-primary);
+            background-size: cover;
+            background-position: center;
             position: relative;
             overflow: hidden;
         }
@@ -278,7 +316,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(244, 162, 97, 0.3) 70%);
+            background: linear-gradient(45deg, transparent 30%, rgba(26, 71, 42, 0.3) 70%);
         }
 
         .tour-price {
@@ -290,6 +328,33 @@
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 600;
+            box-shadow: 0 4px 15px rgba(244, 162, 97, 0.3);
+        }
+
+        .tour-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(26, 71, 42, 0.9);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .gallery-indicator {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
         .tour-content {
@@ -303,10 +368,35 @@
             color: var(--text-dark);
         }
 
+        .tour-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
         .tour-description {
             color: #666;
             margin-bottom: 1rem;
             line-height: 1.5;
+        }
+
+        .tour-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tour-feature {
+            background: #f0f8f0;
+            color: var(--primary-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .tour-details {
@@ -341,6 +431,33 @@
             background: var(--secondary-color);
         }
 
+        .btn-gallery {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            opacity: 0;
+        }
+
+        .tour-card:hover .btn-gallery {
+            opacity: 1;
+        }
+
+        .btn-gallery:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -371,6 +488,11 @@
             animation: slideInScale 0.3s ease-out;
         }
 
+        .modal-content.large {
+            max-width: 900px;
+            max-height: 90vh;
+        }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -391,6 +513,12 @@
             cursor: pointer;
             color: #666;
             padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .close-modal:hover {
+            background: #f0f0f0;
         }
 
         .form-grid {
@@ -402,6 +530,161 @@
 
         .form-group-full {
             grid-column: 1 / -1;
+        }
+
+        /* Gallery Modal */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .gallery-main-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            padding: 2rem 0;
+            background: #f8f9fa;
+        }
+
+        .admin-panel.hidden {
+            display: none;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .admin-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .admin-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .data-table {
+            width: 100%;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-new {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
         }
 
         /* Services Section */
@@ -550,129 +833,30 @@
             transform: translateY(-2px);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
-        @keyframes slideInLeft {
-            from { 
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from { 
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInScale {
-            from { 
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to { 
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .search-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav {
-                display: none;
-            }
-            
-            .hero-content {
-                text-align: center;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Hide scrollbar but keep functionality */
-        body::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        body::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        body::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 4px;
-        }
-
-        body::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-color);
-        }
-
-        /* Loading animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Success message */
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            display: none;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            display: none;
-            border: 1px solid #f5c6cb;
+        .whatsapp-float:hover {
+            transform: translateY(-3px);
+            box-shadow: 2px 5px 8px #999;
         }
 
         /* Catalog styles */
@@ -725,6 +909,186 @@
         .btn-filter:hover {
             background: var(--secondary-color);
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInScale {
+            from { 
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Success/Error Messages */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-soft);
+            z-index: 3000;
+            max-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .notification-success {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .notification-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .notification-info {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+
+            .admin-tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .data-table {
+                overflow-x: auto;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
@@ -738,7 +1102,15 @@
                     <a href="#tours" class="nav-link">Туры</a>
                     <a href="#services" class="nav-link">Услуги</a>
                     <a href="#contact" class="nav-link">Контакты</a>
+                    <a href="#admin" class="nav-link admin-link" onclick="toggleAdminPanel()">
+                        <i class="fas fa-cog"></i> Админка
+                    </a>
                 </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </header>
@@ -776,6 +1148,116 @@
                             <i class="fas fa-search"></i> Найти
                         </button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin" class="admin-panel hidden">
+        <div class="container">
+            <h2 class="section-title">Панель администратора</h2>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="statsBookings">0</div>
+                    <div class="stat-label">Всего бронирований</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statsContacts">0</div>
+                    <div class="stat-label">Обращений</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statsToday">0</div>
+                    <div class="stat-label">Сегодня заявок</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statsRevenue">0</div>
+                    <div class="stat-label">Потенциальный доход ₸</div>
+                </div>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchAdminTab('bookings')">
+                    <i class="fas fa-suitcase"></i> Бронирования
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('contacts')">
+                    <i class="fas fa-envelope"></i> Обращения
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('export')">
+                    <i class="fas fa-download"></i> Экспорт данных
+                </button>
+            </div>
+
+            <div class="admin-content active" id="adminBookings">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Клиент</th>
+                                <th>Тур</th>
+                                <th>Телефон</th>
+                                <th>Email</th>
+                                <th>Дата поездки</th>
+                                <th>Людей</th>
+                                <th>Сумма</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                            <tr>
+                                <td colspan="9" style="text-align: center; padding: 2rem; color: #666;">
+                                    Пока нет бронирований. Как только клиенты начнут бронировать туры, данные появятся здесь.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin-content" id="adminContacts">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Имя</th>
+                                <th>Телефон</th>
+                                <th>Email</th>
+                                <th>Сообщение</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactsTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
+                                    Пока нет обращений. Как только клиенты начнут писать, данные появятся здесь.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin-content" id="adminExport">
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-soft);">
+                    <h3>Экспорт данных</h3>
+                    <p style="margin-bottom: 1.5rem; color: #666;">Скачайте все данные бронирований и обращений в формате JSON для резервного копирования или анализа.</p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button onclick="exportData('bookings')" class="btn-primary">
+                            <i class="fas fa-download"></i> Экспорт бронирований
+                        </button>
+                        <button onclick="exportData('contacts')" class="btn-primary">
+                            <i class="fas fa-download"></i> Экспорт обращений
+                        </button>
+                        <button onclick="exportData('all')" class="btn-primary">
+                            <i class="fas fa-download"></i> Экспорт всех данных
+                        </button>
+                        <button onclick="clearAllData()" class="btn-primary" style="background: #dc3545;">
+                            <i class="fas fa-trash"></i> Очистить все данные
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -924,20 +1406,20 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="contactName">Имя</label>
-                            <input type="text" id="contactName" required>
+                            <input type="text" id="contactName" name="name" required>
                         </div>
                         <div class="form-group">
                             <label for="contactPhone">Телефон</label>
-                            <input type="tel" id="contactPhone" required>
+                            <input type="tel" id="contactPhone" name="phone" required>
                         </div>
                     </div>
                     <div class="form-group form-group-full">
                         <label for="contactEmail">Email</label>
-                        <input type="email" id="contactEmail" required>
+                        <input type="email" id="contactEmail" name="email" required>
                     </div>
                     <div class="form-group form-group-full">
                         <label for="contactMessage">Сообщение</label>
-                        <textarea id="contactMessage" required></textarea>
+                        <textarea id="contactMessage" name="message" required></textarea>
                     </div>
                     <button type="submit" class="btn-primary">Отправить сообщение</button>
                     <div id="contactSuccess" class="success-message">
@@ -974,23 +1456,28 @@
                 </div>
                 <div class="footer-section">
                     <h3>Популярные направления</h3>
-                    <p><a href="#">Турция</a></p>
-                    <p><a href="#">Таиланд</a></p>
-                    <p><a href="#">Египет</a></p>
-                    <p><a href="#">Европа</a></p>
+                    <p><a href="#" onclick="filterByDestination('turkey')">Турция</a></p>
+                    <p><a href="#" onclick="filterByDestination('thailand')">Таиланд</a></p>
+                    <p><a href="#" onclick="filterByDestination('egypt')">Египет</a></p>
+                    <p><a href="#" onclick="filterByDestination('europe')">Европа</a></p>
                 </div>
                 <div class="footer-section">
                     <h3>Поддержка</h3>
-                    <p><a href="#">Помощь</a></p>
-                    <p><a href="#">Условия бронирования</a></p>
-                    <p><a href="#">Политика конфиденциальности</a></p>
-                    <p><a href="#">Отзывы</a></p>
+                    <p><a href="#contact">Помощь</a></p>
+                    <p><a href="#" onclick="showModal('termsModal')">Условия бронирования</a></p>
+                    <p><a href="#" onclick="showModal('privacyModal')">Политика конфиденциальности</a></p>
+                    <p><a href="#" onclick="showModal('reviewsModal')">Отзывы</a></p>
                 </div>
             </div>
             <hr style="margin: 2rem 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);">
-            <p>&copy; 2025 TravelPro. Все права защищены.</p>
+            <p>&copy; 2025 TravelPro Kazakhstan. Все права защищены.</p>
         </div>
     </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/77051234567?text=Здравствуйте! Я заинтересован в ваших турах." class="whatsapp-float" target="_blank" title="Написать в WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Tour Booking Modal -->
     <div id="bookingModal" class="modal">
@@ -1003,31 +1490,31 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="bookingName">Имя</label>
-                        <input type="text" id="bookingName" required>
+                        <input type="text" id="bookingName" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="bookingLastName">Фамилия</label>
-                        <input type="text" id="bookingLastName" required>
+                        <input type="text" id="bookingLastName" name="lastName" required>
                     </div>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="bookingEmail">Email</label>
-                        <input type="email" id="bookingEmail" required>
+                        <input type="email" id="bookingEmail" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="bookingPhone">Телефон</label>
-                        <input type="tel" id="bookingPhone" required>
+                        <input type="tel" id="bookingPhone" name="phone" required>
                     </div>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="bookingDate">Дата поездки</label>
-                        <input type="date" id="bookingDate" required>
+                        <input type="date" id="bookingDate" name="date" required>
                     </div>
                     <div class="form-group">
                         <label for="bookingPeople">Количество человек</label>
-                        <select id="bookingPeople" required>
+                        <select id="bookingPeople" name="people" required>
                             <option value="">Выберите</option>
                             <option value="1">1 человек</option>
                             <option value="2">2 человека</option>
@@ -1039,7 +1526,7 @@
                 </div>
                 <div class="form-group form-group-full">
                     <label for="bookingComments">Дополнительные пожелания</label>
-                    <textarea id="bookingComments" placeholder="Расскажите о ваших предпочтениях..."></textarea>
+                    <textarea id="bookingComments" name="comments" placeholder="Расскажите о ваших предпочтениях..."></textarea>
                 </div>
                 <div id="tourDetails" class="tour-details-modal">
                     <!-- Tour details will be populated here -->
@@ -1055,12 +1542,26 @@
         </div>
     </div>
 
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 class="modal-title" id="galleryTitle">Галерея тура</h3>
+                <button class="close-modal" onclick="closeModal('galleryModal')">&times;</button>
+            </div>
+            <div id="galleryContent">
+                <!-- Gallery content will be populated here -->
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Sample tour data
+        // Enhanced tour data with real images and galleries
         const toursData = [
             {
                 id: 1,
                 title: "Стамбул - жемчужина Турции",
+                location: "Турция, Стамбул",
                 description: "Исследуйте богатую историю и культуру древнего Константинополя. Посетите Айя-Софию, Голубую мечеть и Гранд-базар.",
                 price: 350000,
                 duration: "7 дней",
@@ -1068,11 +1569,22 @@
                 region: "europe",
                 durationType: "medium",
                 type: "cultural",
-                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23264653'/><path d='M0,150 Q100,100 200,150 T400,150 L400,250 L0,250 Z' fill='%232a9d8f'/><circle cx='100' cy='80' r='30' fill='%23e9c46a' opacity='0.7'/><circle cx='300' cy='120' r='20' fill='%23f4a261' opacity='0.8'/></svg>"
+                badge: "Хит продаж",
+                image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                features: ["Виза включена", "Гид", "Завтраки", "Трансфер"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1570939274717-7eda259b50ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1605034313761-73ea4a0cfbf3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             },
             {
                 id: 2,
                 title: "Таиланд - тропический рай",
+                location: "Таиланд, Пхукет",
                 description: "Белоснежные пляжи Пхукета, древние храмы Бангкока и экзотическая кухня. Идеальное сочетание релакса и приключений.",
                 price: 420000,
                 duration: "10 дней",
@@ -1080,11 +1592,22 @@
                 region: "asia",
                 durationType: "medium",
                 type: "relax",
-                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%232a9d8f'/><path d='M0,180 Q100,140 200,180 T400,180 L400,250 L0,250 Z' fill='%23e9c46a'/><circle cx='320' cy='60' r='25' fill='%23f4a261'/><path d='M50,100 Q150,80 250,100' stroke='%23264653' stroke-width='3' fill='none'/></svg>"
+                badge: "Рекомендуем",
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                features: ["Пляжи", "СПА", "Экскурсии", "Дайвинг"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1571019613540-996ba8f2faaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1553235342-e83f11bbf8cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             },
             {
                 id: 3,
                 title: "Париж - город любви",
+                location: "Франция, Париж",
                 description: "Эйфелева башня, Лувр, Монмартр и круазы по Сене. Окунитесь в атмосферу самого романтичного города мира.",
                 price: 480000,
                 duration: "5 дней",
@@ -1092,11 +1615,22 @@
                 region: "europe",
                 durationType: "short",
                 type: "cultural",
-                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23e76f51'/><rect x='180' y='50' width='8' height='100' fill='%23264653'/><polygon points='150,150 200,100 250,150' fill='%23264653'/><circle cx='320' cy='80' r='15' fill='%23f4a261' opacity='0.8'/></svg>"
+                badge: "Романтично",
+                image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                features: ["Музеи", "Круизы", "Дегустации", "Фотосессии"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1431274172761-fca41d930114?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1549144511-f099e773c147?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             },
             {
                 id: 4,
                 title: "Мальдивы - райские острова",
+                location: "Мальдивы",
                 description: "Роскошные водные виллы, кристально чистые лагуны и коралловые рифы. Идеальное место для медового месяца.",
                 price: 650000,
                 duration: "7 дней",
@@ -1104,11 +1638,22 @@
                 region: "asia",
                 durationType: "medium",
                 type: "relax",
-                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%232a9d8f'/><ellipse cx='200' cy='180' rx='80' ry='15' fill='%23e9c46a'/><circle cx='200' cy='170' r='40' fill='%23f4a261' opacity='0.6'/><circle cx='300' cy='60' r='20' fill='%23264653' opacity='0.3'/></svg>"
+                badge: "Luxury",
+                image: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                features: ["Водные виллы", "All Inclusive", "Дайвинг", "СПА"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1571019613540-996ba8f2faaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1520637836862-4d197d17c11a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             },
             {
                 id: 5,
                 title: "Египет - земля фараонов",
+                location: "Египет, Каир - Хургада",
                 description: "Пирамиды Гизы, долина царей, круиз по Нилу. Погрузитесь в тайны древней цивилизации.",
                 price: 380000,
                 duration: "8 дней",
@@ -1116,11 +1661,22 @@
                 region: "africa",
                 durationType: "medium",
                 type: "cultural",
-                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23e9c46a'/><polygon points='100,200 150,120 200,200' fill='%23264653'/><polygon points='220,200 270,130 320,200' fill='%23264653'/><circle cx='300' cy='70' r='25' fill='%23f4a261'/></svg>"
+                badge: "Исторический",
+                image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                features: ["Пирамиды", "Круиз по Нилу", "Музеи", "Дайвинг"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1461183479101-6c14cd0e12cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1546412414-e1885259563a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1628453063574-3c42b36cd84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             },
             {
                 id: 6,
                 title: "Япония - страна восходящего солнца",
+                location: "Япония, Токио - Киото",
                 description: "Токио, Киото, гора Фудзи и цветение сакуры. Уникальное сочетание традиций и современности.",
                 price: 580000,
                 duration: "12 дней",
@@ -1128,18 +1684,29 @@
                 region: "asia",
                 durationType: "long",
                 type: "cultural",
-                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23264653'/><polygon points='200,80 240,180 160,180' fill='%232a9d8f'/><circle cx='320' cy='60' r='30' fill='%23e76f51'/><circle cx='100' cy='100' r='8' fill='%23f4a261' opacity='0.8'/></svg>"
+                badge: "Эксклюзив",
+                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                features: ["JR Pass", "Онсены", "Сакура", "Храмы"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1554797589-7241bb691973?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                ]
             }
         ];
 
         let filteredTours = [...toursData];
-        let bookings = [];
-        let contacts = [];
+        let bookings = JSON.parse(localStorage.getItem('travelpro_bookings')) || [];
+        let contacts = JSON.parse(localStorage.getItem('travelpro_contacts')) || [];
 
         // Initialize the website
         document.addEventListener('DOMContentLoaded', function() {
             renderTours();
             initEventListeners();
+            updateAdminStats();
             
             // Set minimum date to today
             const today = new Date().toISOString().split('T')[0];
@@ -1159,17 +1726,31 @@
             });
         }
 
-        // Create tour card element
+        // Create enhanced tour card element
         function createTourCard(tour) {
             const card = document.createElement('div');
             card.className = 'tour-card';
             card.innerHTML = `
                 <div class="tour-image" style="background-image: url('${tour.image}')">
                     <div class="tour-price">${formatPrice(tour.price)} ₸</div>
+                    <div class="tour-badge">${tour.badge}</div>
+                    <div class="gallery-indicator">
+                        <i class="fas fa-images"></i> ${tour.gallery.length}
+                    </div>
+                    <button class="btn-gallery" onclick="openGallery(${tour.id})">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
                 <div class="tour-content">
                     <h3 class="tour-title">${tour.title}</h3>
+                    <div class="tour-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${tour.location}</span>
+                    </div>
                     <p class="tour-description">${tour.description}</p>
+                    <div class="tour-features">
+                        ${tour.features.map(feature => `<span class="tour-feature">${feature}</span>`).join('')}
+                    </div>
                     <div class="tour-details">
                         <div class="tour-duration">
                             <i class="fas fa-clock"></i>
@@ -1186,6 +1767,33 @@
                 </div>
             `;
             return card;
+        }
+
+        // Open gallery modal
+        function openGallery(tourId) {
+            const tour = toursData.find(t => t.id === tourId);
+            if (!tour) return;
+
+            document.getElementById('galleryTitle').textContent = tour.title;
+            
+            const galleryContent = document.getElementById('galleryContent');
+            galleryContent.innerHTML = `
+                <img src="${tour.gallery[0]}" alt="${tour.title}" class="gallery-main-image" id="mainImage">
+                <div class="gallery-grid">
+                    ${tour.gallery.map((img, index) => `
+                        <div class="gallery-item" onclick="changeMainImage('${img}')">
+                            <img src="${img}" alt="${tour.title} ${index + 1}">
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            document.getElementById('galleryModal').classList.add('active');
+        }
+
+        // Change main image in gallery
+        function changeMainImage(src) {
+            document.getElementById('mainImage').src = src;
         }
 
         // Format price with spaces
@@ -1210,6 +1818,28 @@
             });
 
             renderTours();
+            
+            // Show results count
+            showNotification(`Найдено туров: ${filteredTours.length}`, 'info');
+        }
+
+        // Filter by destination from footer
+        function filterByDestination(destination) {
+            const regionMap = {
+                'turkey': 'europe',
+                'thailand': 'asia',
+                'egypt': 'africa',
+                'europe': 'europe'
+            };
+            
+            document.getElementById('filterRegion').value = regionMap[destination] || '';
+            applyFilters();
+            
+            // Scroll to tours
+            document.getElementById('tours').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
 
         // Open booking modal
@@ -1221,9 +1851,12 @@
                 <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
                     <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">${tour.title}</h4>
                     <p style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">${tour.description}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-weight: 600; color: var(--text-dark);">Стоимость: ${formatPrice(tour.price)} ₸</span>
                         <span style="color: #666;">Длительность: ${tour.duration}</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        ${tour.features.map(feature => `<span style="background: #e8f5e8; color: var(--primary-color); padding: 0.2rem 0.6rem; border-radius: 10px; font-size: 0.8rem;">${feature}</span>`).join('')}
                     </div>
                 </div>
             `;
@@ -1244,6 +1877,170 @@
             }
         }
 
+        // Toggle admin panel
+        function toggleAdminPanel() {
+            const adminPanel = document.getElementById('admin');
+            adminPanel.classList.toggle('hidden');
+            
+            if (!adminPanel.classList.contains('hidden')) {
+                updateAdminStats();
+                renderAdminData();
+                
+                // Scroll to admin panel
+                adminPanel.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Switch admin tabs
+        function switchAdminTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.admin-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`admin${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
+            
+            if (tabName === 'bookings' || tabName === 'contacts') {
+                renderAdminData();
+            }
+        }
+
+        // Update admin statistics
+        function updateAdminStats() {
+            const today = new Date().toDateString();
+            const todayBookings = bookings.filter(booking => 
+                new Date(booking.createdAt).toDateString() === today
+            ).length;
+            
+            const totalRevenue = bookings.reduce((sum, booking) => sum + booking.totalPrice, 0);
+            
+            document.getElementById('statsBookings').textContent = bookings.length;
+            document.getElementById('statsContacts').textContent = contacts.length;
+            document.getElementById('statsToday').textContent = todayBookings;
+            document.getElementById('statsRevenue').textContent = formatPrice(totalRevenue);
+        }
+
+        // Render admin data tables
+        function renderAdminData() {
+            renderBookingsTable();
+            renderContactsTable();
+        }
+
+        // Render bookings table
+        function renderBookingsTable() {
+            const tbody = document.getElementById('bookingsTableBody');
+            
+            if (bookings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" style="text-align: center; padding: 2rem; color: #666;">
+                            Пока нет бронирований. Как только клиенты начнут бронировать туры, данные появятся здесь.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>${new Date(booking.createdAt).toLocaleDateString()}</td>
+                    <td>${booking.name} ${booking.lastName}</td>
+                    <td>${booking.tourTitle}</td>
+                    <td><a href="tel:${booking.phone}">${booking.phone}</a></td>
+                    <td><a href="mailto:${booking.email}">${booking.email}</a></td>
+                    <td>${booking.date}</td>
+                    <td>${booking.people}</td>
+                    <td>${formatPrice(booking.totalPrice)} ₸</td>
+                    <td><span class="status-badge status-${booking.status}">${getStatusText(booking.status)}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render contacts table
+        function renderContactsTable() {
+            const tbody = document.getElementById('contactsTableBody');
+            
+            if (contacts.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
+                            Пока нет обращений. Как только клиенты начнут писать, данные появятся здесь.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = contacts.map(contact => `
+                <tr>
+                    <td>${new Date(contact.createdAt).toLocaleDateString()}</td>
+                    <td>${contact.name}</td>
+                    <td><a href="tel:${contact.phone}">${contact.phone}</a></td>
+                    <td><a href="mailto:${contact.email}">${contact.email}</a></td>
+                    <td style="max-width: 200px; word-wrap: break-word;">${contact.message}</td>
+                    <td><span class="status-badge status-${contact.status}">${getStatusText(contact.status)}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'В обработке',
+                'confirmed': 'Подтверждено',
+                'new': 'Новое'
+            };
+            return statusMap[status] || status;
+        }
+
+        // Export data
+        function exportData(type) {
+            let data = {};
+            let filename = '';
+            
+            switch(type) {
+                case 'bookings':
+                    data = { bookings, exportedAt: new Date().toISOString() };
+                    filename = 'travelpro-bookings.json';
+                    break;
+                case 'contacts':
+                    data = { contacts, exportedAt: new Date().toISOString() };
+                    filename = 'travelpro-contacts.json';
+                    break;
+                case 'all':
+                    data = { bookings, contacts, exportedAt: new Date().toISOString() };
+                    filename = 'travelpro-all-data.json';
+                    break;
+            }
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification(`Данные экспортированы: ${filename}`, 'success');
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (confirm('Вы уверены, что хотите удалить ВСЕ данные? Это действие нельзя отменить.')) {
+                bookings = [];
+                contacts = [];
+                localStorage.removeItem('travelpro_bookings');
+                localStorage.removeItem('travelpro_contacts');
+                updateAdminStats();
+                renderAdminData();
+                showNotification('Все данные удалены', 'success');
+            }
+        }
+
         // Initialize event listeners
         function initEventListeners() {
             // Search form
@@ -1252,7 +2049,7 @@
             // Booking form
             document.getElementById('bookingForm').addEventListener('submit', handleBooking);
             
-            // Contact form
+            // Contact form  
             document.getElementById('contactForm').addEventListener('submit', handleContact);
             
             // Close modals when clicking outside
@@ -1280,6 +2077,12 @@
                     checkoutField.value = '';
                 }
             });
+
+            // Mobile menu toggle
+            document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+                const nav = document.querySelector('.nav');
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            });
         }
 
         // Handle search form submission
@@ -1287,10 +2090,7 @@
             e.preventDefault();
             
             const destination = document.getElementById('destination').value;
-            const checkin = document.getElementById('checkin').value;
-            const checkout = document.getElementById('checkout').value;
-
-            // Apply search filters
+            
             if (destination) {
                 document.getElementById('filterRegion').value = destination;
             }
@@ -1302,9 +2102,6 @@
                 behavior: 'smooth',
                 block: 'start'
             });
-
-            // Show search notification
-            showNotification(`Поиск по направлению: ${destination || 'Все направления'}`, 'info');
         }
 
         // Handle booking form submission
@@ -1330,13 +2127,34 @@
                 createdAt: new Date().toISOString()
             };
 
-            // Simulate API call
             setTimeout(() => {
                 bookings.push(bookingData);
                 localStorage.setItem('travelpro_bookings', JSON.stringify(bookings));
                 
                 document.getElementById('bookingSuccess').style.display = 'block';
                 document.getElementById('bookingError').style.display = 'none';
+                
+                updateAdminStats();
+                
+                // Send to WhatsApp
+                const whatsappMessage = `🎯 НОВОЕ БРОНИРОВАНИЕ
+                
+Тур: ${tour.title}
+Клиент: ${bookingData.name} ${bookingData.lastName}
+Телефон: ${bookingData.phone}
+Email: ${bookingData.email}
+Дата поездки: ${bookingData.date}
+Количество: ${bookingData.people}
+Стоимость: ${formatPrice(tour.price)} ₸
+
+Комментарии: ${bookingData.comments || 'Нет'}
+
+Заявка #${bookingData.id}`;
+                
+                const whatsappUrl = `https://wa.me/77051234567?text=${encodeURIComponent(whatsappMessage)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                showNotification('Бронирование отправлено! Проверьте админку.', 'success');
                 
                 // Reset form after 2 seconds
                 setTimeout(() => {
@@ -1359,7 +2177,6 @@
                 createdAt: new Date().toISOString()
             };
 
-            // Simulate API call
             setTimeout(() => {
                 contacts.push(contactData);
                 localStorage.setItem('travelpro_contacts', JSON.stringify(contacts));
@@ -1367,8 +2184,12 @@
                 document.getElementById('contactSuccess').style.display = 'block';
                 document.getElementById('contactError').style.display = 'none';
                 
+                updateAdminStats();
+                
                 // Reset form
                 document.getElementById('contactForm').reset();
+                
+                showNotification('Сообщение отправлено! Проверьте админку.', 'success');
                 
                 // Hide message after 3 seconds
                 setTimeout(() => {
@@ -1381,20 +2202,6 @@
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'error' ? '#f8d7da' : '#d1ecf1'};
-                color: ${type === 'error' ? '#721c24' : '#0c5460'};
-                padding: 1rem;
-                border-radius: 8px;
-                border: 1px solid ${type === 'error' ? '#f5c6cb' : '#bee5eb'};
-                box-shadow: var(--shadow-soft);
-                z-index: 3000;
-                max-width: 300px;
-                animation: slideInRight 0.3s ease-out;
-            `;
             notification.textContent = message;
 
             document.body.appendChild(notification);
@@ -1402,38 +2209,28 @@
             setTimeout(() => {
                 notification.style.animation = 'slideOutRight 0.3s ease-in';
                 setTimeout(() => {
-                    document.body.removeChild(notification);
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
                 }, 300);
             }, 3000);
         }
 
-        // Add slide animations for notifications
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Load saved data on page load
-        window.addEventListener('load', function() {
-            const savedBookings = localStorage.getItem('travelpro_bookings');
-            const savedContacts = localStorage.getItem('travelpro_contacts');
-            
-            if (savedBookings) {
-                bookings = JSON.parse(savedBookings);
-            }
-            
-            if (savedContacts) {
-                contacts = JSON.parse(savedContacts);
-            }
-        });
+        // Show modal (for terms, privacy, etc.)
+        function showModal(modalId) {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Информация</h3>
+                        <button class="close-modal" onclick="document.body.removeChild(this.closest('.modal'))">&times;</button>
+                    </div>
+                    <p>Эта функция будет добавлена в ближайшее время. Для получения подробной информации свяжитесь с нами по телефону +7 (727) 123-45-67.</p>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
 
         // Export functions for console debugging
         window.TravelPro = {
@@ -1442,11 +2239,18 @@
             clearBookings: () => {
                 bookings = [];
                 localStorage.removeItem('travelpro_bookings');
+                updateAdminStats();
+                renderAdminData();
+                showNotification('Данные бронирований очищены', 'success');
             },
             clearContacts: () => {
                 contacts = [];
                 localStorage.removeItem('travelpro_contacts');
-            }
+                updateAdminStats();
+                renderAdminData();
+                showNotification('Контактные данные очищены', 'success');
+            },
+            exportData: (type) => exportData(type)
         };
     </script>
 </body>
