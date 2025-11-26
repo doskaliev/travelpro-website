@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelPro - Путешествия без компромиссов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a472a;
+            --secondary-color: #2d5f3f;
+            --accent-color: #f4a261;
+            --text-dark: #264653;
+            --text-light: #e9ecef;
+            --background-light: #f8f9fa;
+            --background-dark: #1a472a;
+            --gradient-primary: linear-gradient(135deg, #1a472a 0%, #2d5f3f 50%, #4a7c59 100%);
+            --gradient-accent: linear-gradient(45deg, #f4a261 0%, #e76f51 100%);
+            --shadow-soft: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+            --border-radius: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--background-light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(26, 71, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(26, 71, 42, 0.3), rgba(45, 95, 63, 0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23264653;stop-opacity:1" /><stop offset="50%" style="stop-color:%232a9d8f;stop-opacity:1" /><stop offset="100%" style="stop-color:%23e9c46a;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23g1)"/><circle cx="200" cy="150" r="60" fill="%23f4a261" opacity="0.3"/><circle cx="800" cy="200" r="40" fill="%23e76f51" opacity="0.2"/><circle cx="1000" cy="600" r="80" fill="%232a9d8f" opacity="0.2"/><path d="M0,400 Q300,300 600,400 T1200,400 L1200,800 L0,800 Z" fill="%23264653" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: left;
+            color: var(--text-light);
+            max-width: 600px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Search Widget */
+        .search-widget {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-top: 3rem;
+            box-shadow: var(--shadow-soft);
+            animation: slideInUp 1s ease-out 0.5s both;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.8rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            transition: var(--transition-smooth);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        }
+
+        .btn-search {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-search:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Tours Grid */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tour-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .tour-image {
+            height: 250px;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tour-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(244, 162, 97, 0.3) 70%);
+        }
+
+        .tour-price {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .tour-content {
+            padding: 1.5rem;
+        }
+
+        .tour-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .tour-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tour-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tour-duration,
+        .tour-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .btn-book {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-book:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideInScale 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            padding: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+        }
+
+        .contact-form .form-group input,
+        .contact-form .form-group textarea {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            color: var(--text-dark);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--background-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInScale {
+            from { 
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success message */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Catalog styles */
+        .catalog-filters {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .btn-filter {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            width: fit-content;
+        }
+
+        .btn-filter:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">TravelPro</a>
+                <nav class="nav">
+                    <a href="#home" class="nav-link">Главная</a>
+                    <a href="#tours" class="nav-link">Туры</a>
+                    <a href="#services" class="nav-link">Услуги</a>
+                    <a href="#contact" class="nav-link">Контакты</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Путешествия без компромиссов</h1>
+                <p class="hero-subtitle">Откройте для себя мир с TravelPro. Уникальные маршруты, комфорт и незабываемые впечатления в каждом путешествии.</p>
+                <a href="#tours" class="btn-primary">Выбрать тур</a>
+                
+                <div class="search-widget">
+                    <form class="search-form" id="searchForm">
+                        <div class="form-group">
+                            <label for="destination">Направление</label>
+                            <select id="destination">
+                                <option value="">Выберите направление</option>
+                                <option value="europe">Европа</option>
+                                <option value="asia">Азия</option>
+                                <option value="america">Америка</option>
+                                <option value="africa">Африка</option>
+                                <option value="oceania">Океания</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkin">Дата заезда</label>
+                            <input type="date" id="checkin">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout">Дата выезда</label>
+                            <input type="date" id="checkout">
+                        </div>
+                        <button type="submit" class="btn-search">
+                            <i class="fas fa-search"></i> Найти
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tours Section -->
+    <section id="tours" class="section">
+        <div class="container">
+            <h2 class="section-title">Популярные направления</h2>
+            <p class="section-subtitle">Тщательно отобранные туры для незабываемых путешествий</p>
+            
+            <!-- Catalog Filters -->
+            <div class="catalog-filters">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="filterRegion">Регион</label>
+                        <select id="filterRegion">
+                            <option value="">Все регионы</option>
+                            <option value="europe">Европа</option>
+                            <option value="asia">Азия</option>
+                            <option value="america">Америка</option>
+                            <option value="africa">Африка</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterPrice">Цена до</label>
+                        <input type="number" id="filterPrice" placeholder="Максимальная цена">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterDuration">Длительность</label>
+                        <select id="filterDuration">
+                            <option value="">Любая</option>
+                            <option value="short">1-5 дней</option>
+                            <option value="medium">6-10 дней</option>
+                            <option value="long">11+ дней</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterType">Тип тура</label>
+                        <select id="filterType">
+                            <option value="">Все типы</option>
+                            <option value="cultural">Культурный</option>
+                            <option value="adventure">Приключения</option>
+                            <option value="relax">Отдых</option>
+                            <option value="business">Деловой</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-filter" onclick="applyFilters()">
+                    <i class="fas fa-filter"></i> Применить фильтры
+                </button>
+            </div>
+
+            <div class="tours-grid" id="toursGrid">
+                <!-- Tours will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <p class="section-subtitle">Полный спектр туристических услуг для комфортного отдыха</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3 class="service-title">Авиабилеты</h3>
+                    <p class="service-description">Поиск и бронирование авиабилетов по выгодным ценам. Работаем с крупнейшими авиакомпаниями мира.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3 class="service-title">Отели</h3>
+                    <p class="service-description">Бронирование отелей от эконом-класса до люксовых курортов. Гарантия лучших цен.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-passport"></i>
+                    </div>
+                    <h3 class="service-title">Визовая поддержка</h3>
+                    <p class="service-description">Помощь в оформлении виз и документов. Полное сопровождение визового процесса.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="service-title">Страхование</h3>
+                    <p class="service-description">Туристическое страхование для спокойного и безопасного путешествия.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <p class="section-subtitle">Готовы помочь спланировать ваше идеальное путешествие</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Адрес</h4>
+                            <p>г. Алматы, ул. Абая 150/230</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Телефон</h4>
+                            <p>+7 (727) 123-45-67</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@travelpro.kz</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Режим работы</h4>
+                            <p>Пн-Пт: 9:00-18:00<br>Сб: 10:00-16:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contactName">Имя</label>
+                            <input type="text" id="contactName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Телефон</label>
+                            <input type="tel" id="contactPhone" required>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" required>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label for="contactMessage">Сообщение</label>
+                        <textarea id="contactMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Отправить сообщение</button>
+                    <div id="contactSuccess" class="success-message">
+                        Ваше сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.
+                    </div>
+                    <div id="contactError" class="error-message">
+                        Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте еще раз.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TravelPro</h3>
+                    <p>Ваш надежный партнер в мире путешествий. Создаем незабываемые впечатления уже более 10 лет.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <p><a href="#home">Главная</a></p>
+                    <p><a href="#tours">Туры</a></p>
+                    <p><a href="#services">Услуги</a></p>
+                    <p><a href="#contact">Контакты</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Популярные направления</h3>
+                    <p><a href="#">Турция</a></p>
+                    <p><a href="#">Таиланд</a></p>
+                    <p><a href="#">Египет</a></p>
+                    <p><a href="#">Европа</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Поддержка</h3>
+                    <p><a href="#">Помощь</a></p>
+                    <p><a href="#">Условия бронирования</a></p>
+                    <p><a href="#">Политика конфиденциальности</a></p>
+                    <p><a href="#">Отзывы</a></p>
+                </div>
+            </div>
+            <hr style="margin: 2rem 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p>&copy; 2025 TravelPro. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Tour Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Бронирование тура</h3>
+                <button class="close-modal" onclick="closeModal('bookingModal')">&times;</button>
+            </div>
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bookingName">Имя</label>
+                        <input type="text" id="bookingName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingLastName">Фамилия</label>
+                        <input type="text" id="bookingLastName" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bookingEmail">Email</label>
+                        <input type="email" id="bookingEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingPhone">Телефон</label>
+                        <input type="tel" id="bookingPhone" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bookingDate">Дата поездки</label>
+                        <input type="date" id="bookingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingPeople">Количество человек</label>
+                        <select id="bookingPeople" required>
+                            <option value="">Выберите</option>
+                            <option value="1">1 человек</option>
+                            <option value="2">2 человека</option>
+                            <option value="3">3 человека</option>
+                            <option value="4">4 человека</option>
+                            <option value="5+">5+ человек</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-full">
+                    <label for="bookingComments">Дополнительные пожелания</label>
+                    <textarea id="bookingComments" placeholder="Расскажите о ваших предпочтениях..."></textarea>
+                </div>
+                <div id="tourDetails" class="tour-details-modal">
+                    <!-- Tour details will be populated here -->
+                </div>
+                <button type="submit" class="btn-primary">Забронировать тур</button>
+                <div id="bookingSuccess" class="success-message">
+                    Бронирование успешно отправлено! Мы свяжемся с вами для подтверждения деталей.
+                </div>
+                <div id="bookingError" class="error-message">
+                    Произошла ошибка при бронировании. Пожалуйста, попробуйте еще раз.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample tour data
+        const toursData = [
+            {
+                id: 1,
+                title: "Стамбул - жемчужина Турции",
+                description: "Исследуйте богатую историю и культуру древнего Константинополя. Посетите Айя-Софию, Голубую мечеть и Гранд-базар.",
+                price: 350000,
+                duration: "7 дней",
+                rating: 4.8,
+                region: "europe",
+                durationType: "medium",
+                type: "cultural",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23264653'/><path d='M0,150 Q100,100 200,150 T400,150 L400,250 L0,250 Z' fill='%232a9d8f'/><circle cx='100' cy='80' r='30' fill='%23e9c46a' opacity='0.7'/><circle cx='300' cy='120' r='20' fill='%23f4a261' opacity='0.8'/></svg>"
+            },
+            {
+                id: 2,
+                title: "Таиланд - тропический рай",
+                description: "Белоснежные пляжи Пхукета, древние храмы Бангкока и экзотическая кухня. Идеальное сочетание релакса и приключений.",
+                price: 420000,
+                duration: "10 дней",
+                rating: 4.9,
+                region: "asia",
+                durationType: "medium",
+                type: "relax",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%232a9d8f'/><path d='M0,180 Q100,140 200,180 T400,180 L400,250 L0,250 Z' fill='%23e9c46a'/><circle cx='320' cy='60' r='25' fill='%23f4a261'/><path d='M50,100 Q150,80 250,100' stroke='%23264653' stroke-width='3' fill='none'/></svg>"
+            },
+            {
+                id: 3,
+                title: "Париж - город любви",
+                description: "Эйфелева башня, Лувр, Монмартр и круазы по Сене. Окунитесь в атмосферу самого романтичного города мира.",
+                price: 480000,
+                duration: "5 дней",
+                rating: 4.7,
+                region: "europe",
+                durationType: "short",
+                type: "cultural",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23e76f51'/><rect x='180' y='50' width='8' height='100' fill='%23264653'/><polygon points='150,150 200,100 250,150' fill='%23264653'/><circle cx='320' cy='80' r='15' fill='%23f4a261' opacity='0.8'/></svg>"
+            },
+            {
+                id: 4,
+                title: "Мальдивы - райские острова",
+                description: "Роскошные водные виллы, кристально чистые лагуны и коралловые рифы. Идеальное место для медового месяца.",
+                price: 650000,
+                duration: "7 дней",
+                rating: 4.9,
+                region: "asia",
+                durationType: "medium",
+                type: "relax",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%232a9d8f'/><ellipse cx='200' cy='180' rx='80' ry='15' fill='%23e9c46a'/><circle cx='200' cy='170' r='40' fill='%23f4a261' opacity='0.6'/><circle cx='300' cy='60' r='20' fill='%23264653' opacity='0.3'/></svg>"
+            },
+            {
+                id: 5,
+                title: "Египет - земля фараонов",
+                description: "Пирамиды Гизы, долина царей, круиз по Нилу. Погрузитесь в тайны древней цивилизации.",
+                price: 380000,
+                duration: "8 дней",
+                rating: 4.6,
+                region: "africa",
+                durationType: "medium",
+                type: "cultural",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23e9c46a'/><polygon points='100,200 150,120 200,200' fill='%23264653'/><polygon points='220,200 270,130 320,200' fill='%23264653'/><circle cx='300' cy='70' r='25' fill='%23f4a261'/></svg>"
+            },
+            {
+                id: 6,
+                title: "Япония - страна восходящего солнца",
+                description: "Токио, Киото, гора Фудзи и цветение сакуры. Уникальное сочетание традиций и современности.",
+                price: 580000,
+                duration: "12 дней",
+                rating: 4.8,
+                region: "asia",
+                durationType: "long",
+                type: "cultural",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'><rect width='400' height='250' fill='%23264653'/><polygon points='200,80 240,180 160,180' fill='%232a9d8f'/><circle cx='320' cy='60' r='30' fill='%23e76f51'/><circle cx='100' cy='100' r='8' fill='%23f4a261' opacity='0.8'/></svg>"
+            }
+        ];
+
+        let filteredTours = [...toursData];
+        let bookings = [];
+        let contacts = [];
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTours();
+            initEventListeners();
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkin').min = today;
+            document.getElementById('checkout').min = today;
+            document.getElementById('bookingDate').min = today;
+        });
+
+        // Render tours in the grid
+        function renderTours() {
+            const toursGrid = document.getElementById('toursGrid');
+            toursGrid.innerHTML = '';
+
+            filteredTours.forEach(tour => {
+                const tourCard = createTourCard(tour);
+                toursGrid.appendChild(tourCard);
+            });
+        }
+
+        // Create tour card element
+        function createTourCard(tour) {
+            const card = document.createElement('div');
+            card.className = 'tour-card';
+            card.innerHTML = `
+                <div class="tour-image" style="background-image: url('${tour.image}')">
+                    <div class="tour-price">${formatPrice(tour.price)} ₸</div>
+                </div>
+                <div class="tour-content">
+                    <h3 class="tour-title">${tour.title}</h3>
+                    <p class="tour-description">${tour.description}</p>
+                    <div class="tour-details">
+                        <div class="tour-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>${tour.duration}</span>
+                        </div>
+                        <div class="tour-rating">
+                            <i class="fas fa-star" style="color: #f4a261;"></i>
+                            <span>${tour.rating}</span>
+                        </div>
+                    </div>
+                    <button class="btn-book" onclick="openBookingModal(${tour.id})">
+                        Забронировать
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Format price with spaces
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        // Apply filters to tours
+        function applyFilters() {
+            const region = document.getElementById('filterRegion').value;
+            const maxPrice = parseInt(document.getElementById('filterPrice').value) || Infinity;
+            const duration = document.getElementById('filterDuration').value;
+            const type = document.getElementById('filterType').value;
+
+            filteredTours = toursData.filter(tour => {
+                const regionMatch = !region || tour.region === region;
+                const priceMatch = tour.price <= maxPrice;
+                const durationMatch = !duration || tour.durationType === duration;
+                const typeMatch = !type || tour.type === type;
+
+                return regionMatch && priceMatch && durationMatch && typeMatch;
+            });
+
+            renderTours();
+        }
+
+        // Open booking modal
+        function openBookingModal(tourId) {
+            const tour = toursData.find(t => t.id === tourId);
+            if (!tour) return;
+
+            document.getElementById('tourDetails').innerHTML = `
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">${tour.title}</h4>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">${tour.description}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600; color: var(--text-dark);">Стоимость: ${formatPrice(tour.price)} ₸</span>
+                        <span style="color: #666;">Длительность: ${tour.duration}</span>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('bookingModal').classList.add('active');
+            document.getElementById('bookingForm').dataset.tourId = tourId;
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            
+            // Reset form if it's booking modal
+            if (modalId === 'bookingModal') {
+                document.getElementById('bookingForm').reset();
+                document.getElementById('bookingSuccess').style.display = 'none';
+                document.getElementById('bookingError').style.display = 'none';
+            }
+        }
+
+        // Initialize event listeners
+        function initEventListeners() {
+            // Search form
+            document.getElementById('searchForm').addEventListener('submit', handleSearch);
+            
+            // Booking form
+            document.getElementById('bookingForm').addEventListener('submit', handleBooking);
+            
+            // Contact form
+            document.getElementById('contactForm').addEventListener('submit', handleContact);
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target.id);
+                }
+            });
+
+            // Smooth header transition on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(26, 71, 42, 0.98)';
+                } else {
+                    header.style.background = 'rgba(26, 71, 42, 0.95)';
+                }
+            });
+
+            // Date validation
+            document.getElementById('checkin').addEventListener('change', function() {
+                const checkoutField = document.getElementById('checkout');
+                checkoutField.min = this.value;
+                if (checkoutField.value && checkoutField.value <= this.value) {
+                    checkoutField.value = '';
+                }
+            });
+        }
+
+        // Handle search form submission
+        function handleSearch(e) {
+            e.preventDefault();
+            
+            const destination = document.getElementById('destination').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+
+            // Apply search filters
+            if (destination) {
+                document.getElementById('filterRegion').value = destination;
+            }
+
+            applyFilters();
+
+            // Scroll to tours section
+            document.getElementById('tours').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Show search notification
+            showNotification(`Поиск по направлению: ${destination || 'Все направления'}`, 'info');
+        }
+
+        // Handle booking form submission
+        function handleBooking(e) {
+            e.preventDefault();
+            
+            const tourId = parseInt(e.target.dataset.tourId);
+            const tour = toursData.find(t => t.id === tourId);
+            
+            const bookingData = {
+                id: Date.now(),
+                tourId: tourId,
+                tourTitle: tour.title,
+                name: document.getElementById('bookingName').value,
+                lastName: document.getElementById('bookingLastName').value,
+                email: document.getElementById('bookingEmail').value,
+                phone: document.getElementById('bookingPhone').value,
+                date: document.getElementById('bookingDate').value,
+                people: document.getElementById('bookingPeople').value,
+                comments: document.getElementById('bookingComments').value,
+                totalPrice: tour.price,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            // Simulate API call
+            setTimeout(() => {
+                bookings.push(bookingData);
+                localStorage.setItem('travelpro_bookings', JSON.stringify(bookings));
+                
+                document.getElementById('bookingSuccess').style.display = 'block';
+                document.getElementById('bookingError').style.display = 'none';
+                
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    closeModal('bookingModal');
+                }, 2000);
+            }, 1000);
+        }
+
+        // Handle contact form submission
+        function handleContact(e) {
+            e.preventDefault();
+            
+            const contactData = {
+                id: Date.now(),
+                name: document.getElementById('contactName').value,
+                phone: document.getElementById('contactPhone').value,
+                email: document.getElementById('contactEmail').value,
+                message: document.getElementById('contactMessage').value,
+                status: 'new',
+                createdAt: new Date().toISOString()
+            };
+
+            // Simulate API call
+            setTimeout(() => {
+                contacts.push(contactData);
+                localStorage.setItem('travelpro_contacts', JSON.stringify(contacts));
+                
+                document.getElementById('contactSuccess').style.display = 'block';
+                document.getElementById('contactError').style.display = 'none';
+                
+                // Reset form
+                document.getElementById('contactForm').reset();
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('contactSuccess').style.display = 'none';
+                }, 3000);
+            }, 1000);
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'error' ? '#f8d7da' : '#d1ecf1'};
+                color: ${type === 'error' ? '#721c24' : '#0c5460'};
+                padding: 1rem;
+                border-radius: 8px;
+                border: 1px solid ${type === 'error' ? '#f5c6cb' : '#bee5eb'};
+                box-shadow: var(--shadow-soft);
+                z-index: 3000;
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add slide animations for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Load saved data on page load
+        window.addEventListener('load', function() {
+            const savedBookings = localStorage.getItem('travelpro_bookings');
+            const savedContacts = localStorage.getItem('travelpro_contacts');
+            
+            if (savedBookings) {
+                bookings = JSON.parse(savedBookings);
+            }
+            
+            if (savedContacts) {
+                contacts = JSON.parse(savedContacts);
+            }
+        });
+
+        // Export functions for console debugging
+        window.TravelPro = {
+            getBookings: () => bookings,
+            getContacts: () => contacts,
+            clearBookings: () => {
+                bookings = [];
+                localStorage.removeItem('travelpro_bookings');
+            },
+            clearContacts: () => {
+                contacts = [];
+                localStorage.removeItem('travelpro_contacts');
+            }
+        };
+    </script>
+</body>
+</html>
